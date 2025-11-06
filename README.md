@@ -28,7 +28,7 @@ SAE-Project-Agility/
 │ └── sprints/
 └── tests/
 
-## 🌿 Méthodologie Agile
+##  Méthodologie Agile
 - Chaque membre travaille sur une **branche dédiée** :
   - `feature/dhcp` → configuration DHCP et routage
   - `feature/vlans` → configuration vlan  
@@ -38,7 +38,7 @@ SAE-Project-Agility/
 - Les validations intermédiaires sont intégrées dans `develop`.
 - La version finale est fusionnée dans `main`.
 
-## 🧠 Livrables attendus
+##  Livrables attendus
 - Fichiers Packet Tracer `.pkt`
 - Sauvegardes de configuration (`.cfg`)
 - Documentation complète (`plan_adressage.md`, schémas, tests)
