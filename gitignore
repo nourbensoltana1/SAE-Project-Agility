@@ -1,0 +1,15 @@
+# Packet Tracer temporary files
+*.bak
+*.tmp
+*.autosave
+*.lock
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Backup configs
+configs/*.old
