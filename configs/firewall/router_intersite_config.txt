@@ -1,0 +1,130 @@
+Building configuration...
+
+Current configuration : 2379 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2811/K9 sn FTX10176S17-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ description lien internet
+ ip address 172.16.0.1 255.255.255.0
+ ip nat outside
+ ip access-group IN_FROM_INTERNET in
+ ip access-group OUT_TO_INTERNET out
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ ip address 10.0.0.1 255.255.255.0
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/0
+ ip address 192.168.1.254 255.255.255.0
+ ip nat inside
+ ip access-group ACL_INTERSITES in
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/1
+ ip address 192.168.2.254 255.255.255.0
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip nat inside source list NAT-PERMIT interface FastEthernet0/0 overload
+ip classless
+ip route 192.168.10.0 255.255.255.0 192.168.1.253 
+ip route 192.168.20.0 255.255.255.0 192.168.1.253 
+ip route 192.168.40.0 255.255.255.0 192.168.2.253 
+ip route 192.168.30.0 255.255.255.0 192.168.2.253 
+ip route 1.1.1.0 255.255.255.0 172.16.0.2 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended ACL_INTERSITES
+ deny ip 192.168.10.0 0.0.0.255 192.168.40.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.30.0 0.0.0.255
+ deny ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny ip 192.168.40.0 0.0.0.255 192.168.10.0 0.0.0.255
+ permit ip 192.168.30.0 0.0.0.255 192.168.10.0 0.0.0.255
+ permit ip 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255
+ permit ip 192.168.40.0 0.0.0.255 192.168.20.0 0.0.0.255
+ permit ip 192.168.20.0 0.0.0.255 192.168.40.0 0.0.0.255
+ permit ip any any
+ip access-list extended NAT-PERMIT
+ permit ip 192.168.10.0 0.0.0.255 any
+ permit ip 192.168.20.0 0.0.0.255 any
+ permit ip 192.168.30.0 0.0.0.255 any
+ permit ip 192.168.40.0 0.0.0.255 any
+ permit ip 10.0.0.0 0.0.0.255 any
+ip access-list extended OUT_TO_INTERNET
+ permit tcp any any eq www
+ permit tcp any any eq 443
+ permit udp any any eq domain
+ permit udp any eq domain any
+ permit icmp any any echo
+ deny ip any any
+ip access-list extended IN_FROM_INTERNET
+ permit tcp any any established
+ permit icmp any any echo-reply
+ deny ip any any
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

@@ -1,0 +1,107 @@
+Building configuration...
+
+Current configuration : 1332 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2811/K9 sn FTX10174492-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 192.168.2.253 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1.30
+ encapsulation dot1Q 30
+ ip address 192.168.30.254 255.255.255.0
+ ip helper-address 10.0.0.2
+!
+interface FastEthernet0/1.40
+ encapsulation dot1Q 40
+ ip address 192.168.40.254 255.255.255.0
+ ip helper-address 10.0.0.2
+!
+interface FastEthernet1/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 192.168.1.0 255.255.255.0 192.168.2.254 
+ip route 10.0.0.0 255.255.255.0 192.168.2.254 
+ip route 172.16.0.0 255.255.255.0 192.168.2.254 
+ip route 192.168.10.0 255.255.255.0 192.168.2.254 
+ip route 192.168.20.0 255.255.255.0 192.168.2.254 
+ip route 0.0.0.0 0.0.0.0 192.168.2.254 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended VLAN-FILTER
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
